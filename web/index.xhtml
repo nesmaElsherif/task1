@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Journaldev Tutorial</title>
+
+        <style>
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+
+            .button1 {border-radius: 2px;}
+            .button2 {border-radius: 4px;}
+            .button3 {border-radius: 8px;}
+            .button4 {border-radius: 12px;}
+            .button5 {border-radius: 50%;}
+
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even){background-color: #f2f2f2}
+
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
+    </h:head>
+    <h:body>
+          <f:view>
+        <center>
+            <p>  <h1 > <font color="green"> task 1  </font></h1></p>
+            <h:form enctype="multipart/form-data" id="form">
+                <p:fileUpload value="#{fileUploadView.file}"  mode="simple"  class="button button4"></p:fileUpload>
+                <p:separator/>
+
+                <p:commandButton actionListener="#{fileUploadView.readFile}"  value="Send to data base" ajax="false"  class="button button4"/>
+                <h:commandButton   value="Show Data"  action="#{fileUploadView.getDataInDataBase}" class="button button4">
+                    <f:ajax  execute="form1 form" render="form1"/>
+                </h:commandButton>
+            
+            </h:form>
+
+
+            <h:form id="form1">
+                    <c:if test="${ not empty fileUploadView.model}"> 
+
+                    <center>   <h1><font color="green"> Show Data </font></h1></center>
+                    
+                    <h:dataTable value="#{fileUploadView.model}" var="o">
+
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header">ID</f:facet>
+                            <!-- row record -->
+                            #{o.id}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header"> Name</f:facet>
+                                #{o.name}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">address</f:facet>
+                                #{o.address}
+                        </h:column>
+
+
+                    </h:dataTable>
+                    </c:if>
+            </h:form>
+
+
+        </center>
+          </f:view>
+    </h:body>
+</html>
+
